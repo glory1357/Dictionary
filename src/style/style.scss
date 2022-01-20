@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #852d2d;
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.button {
+    min-width: 101px;
+    text-transform: uppercase;
+    font-size: 20px;
+    transition: 0.3s transform;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    .inner {
+        position: relative;
+        background-color: #d5c938;
+        line-height: 18px;
+        padding: 0 18px;
+        transition: none;
+        &::before {
+            border-color: #d5c938 transparent;
+            border-style: solid;
+            border-width: 0 0 10px 10px;
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -10px;
+            transition: none;
+        }
+        &::after {
+            border-color: #d5c938 transparent;
+            border-style: solid;
+            border-width: 0 0 10px 10px;
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: -10px;
+            transform: rotate(180deg);
+            transition: none;
+        }
+    }
+    &__main,  &__secondary {
+        &:hover {
+            color: #fff;
+        }
+    }
+    &__secondary {
+        .inner {
+            background-color: grey;
+            &::before {
+                border-color: grey transparent;
+                transition: none;
+            }
+            &::after {
+                border-color: grey transparent; 
+                transition: none;
+            }
+        }
+    }
+    &::before {
+        content: '';
+        display: block;
+        height: 10px;
+        margin-left: 10px;
+        transition: none;
+
+    }
+    &::after {
+        content: '';
+        display: block;
+        height: 10px;
+        margin-right: 10px;
+        transition: none;
+
+    }
+    &.button__main::before, &.button__main::after {
+        background-color: #d5c938;
+    }
+    &.button__secondary::before, &.button__secondary::after {
+        background-color: grey;
+    }
+    &:hover {
+        transform: translateY(-5px);
+    }
+    &:disabled {
+        filter: grayscale(.5);
+    }
+}
+
+span {
+    font-size: 38px;
+    color: black;
+}

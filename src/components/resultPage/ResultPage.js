@@ -9,14 +9,12 @@ const ResultPage = () => {
     const [word, setWord] = useState(null);
     const {getWord, clearError, process, setProcess} = useWordService();
 
-    // updateData();
-
     useEffect(() => {
         updateData()
     }, [wordKey])
 
     const updateData =  () => {
-        // clearError();
+        clearError();
          getWord(wordKey).then(onDataLoaded);
         
         }
@@ -35,9 +33,21 @@ const ResultPage = () => {
 }
 
 const Content = ({data}) => {
+    const {word, phonetics, meanings} = data[0];
+    console.log(phonetics);
+    // let phoneticsContent = '';
+
+    // phonetics.forEach(function(item, i) {
+    //     for (let key in item) {
+    //         return <li>{key}: {item[key]}</li>
+    //         phoneticsContent += <li>{key}: {item[key]}</li>;
+    //     }
+    // });
+    // console.log(phoneticsContent)
+
     return (
            <div className="single-comic">
-               <h2>{data[0].word}</h2>
+               <h2>Word:{word}</h2>
             </div>
     )
 }
