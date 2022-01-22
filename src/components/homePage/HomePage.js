@@ -25,16 +25,13 @@ const HomePage = () => {
     }
 
     const errorMessage = process === 'error' ? <div className="word__search-critical-error"><ErrorMessage /></div> : null;
-    const results = !word || process === 'error' ? null : word.length > 0 ?
+    const results = !word || process === 'error' ? null :
                     <div className="word__search">
                         <div className="word__search-success">Нашли слово: <span>{word[0].word}</span>! Посетить страницу?</div>
                         <Link to={`/${word[0].word}`} className='button button__secondary'>
                             <div className="inner">На страницу</div>
                         </Link>
-                    </div> :
-                    <div className="word__search-error">
-                        The character was not found. Check the name and try again
-                    </div> ;
+                    </div> 
     
     return (
         <div className="word__search-form">

@@ -8,7 +8,6 @@ const useWordService = () => {
     const _apiBase = 'http://api.dictionaryapi.dev/api/v2/entries/en/';
 
     const getWord = async (name) => {
-        setProcess('loading');
         const res = await request(`${_apiBase}${name}`);
         return res;
     }

@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #852d2d;
+    background: #bdbdbd;
     margin: 10px;
 }
 
@@ -103,9 +103,4 @@ a {
     &:disabled {
         filter: grayscale(.5);
     }
-}
-
-span {
-    font-size: 38px;
-    color: black;
 }

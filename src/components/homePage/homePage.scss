@@ -5,16 +5,17 @@
         &-form {
             width: 50%;
             margin: auto;
+            margin-top: 10%;
             padding: 25px;
-            margin-top: 30px;
         }
         &-label {
+            margin-bottom: 50px;
             display: block;
             font-weight: bold;
-            font-size: 30px;
+            font-size: 40px;
             text-align: center;
             line-height: 24px;
-            color: #8aa2a3;
+            color: #930505;
         }
         &-wrapper {
             margin-top: 25px;
@@ -52,4 +53,9 @@
             color: #e5cc19;
         }
     }
+}
+
+span {
+    font-size: 38px;
+    color: black;
 }

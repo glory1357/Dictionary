@@ -1,10 +1,10 @@
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import img from './notFound.png';
 import { Link } from "react-router-dom";
 
 const Page404 = () => {
     return (
         <div>
-            <ErrorMessage/>
+            <img src={img} alt='not found'/>
             <p style={{'textAlign': 'center', 'fontWeight': 'bold', 'fontSize': '24px'}}>Page doesn't exist</p>
             <Link 
                style={{'display': 'block', 'textAlign': 'center', 'fontWeight': 'bold', 'fontSize': '24px', 'marginTop': '30px'}} 
