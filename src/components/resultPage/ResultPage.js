@@ -7,23 +7,23 @@ import Page404 from '../404/404';
 import './resultPage.scss';
 
 const ResultPage = () => {
+    console.log('a')
     const {wordKey} = useParams();
     const [word, setWord] = useState(null);
     const {getWord, clearError, process, setProcess} = useWordService();
-    console.log('f')
+    
     useEffect(() => {
         console.log('fe')
-        updateData()
+        updateData();
     }, [wordKey])
 
     const updateData =  () => {
         clearError();
-        getWord(wordKey).then(onDataLoaded);
+        getWord(wordKey).then(onDataLoaded).then(()=> setProcess('confirmed'));
     }
         
     const onDataLoaded = (data) => {
         setWord(data);
-        setProcess('confirmed');
     }
 
     return (
