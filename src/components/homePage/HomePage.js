@@ -1,31 +1,29 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage as FormikErrorMessage } from "formik";
 import * as Yup from "yup"
 import { Link } from "react-router-dom";
 
-import useWordService from "../../services/WordService";
+import {wordFetching, wordFetched, wordFetchingError} from '../../actions/index';
 import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/Spinner";
+import {useHttp} from '../../hooks/http.hook';
 
 import './homePage.scss';
 
 const HomePage = () => {
-    const [word, setWord] = useState(null);
-    const {getWord, clearError, process, setProcess} = useWordService();
-
-    const onWordLoaded = (word) => {
-        setWord(word);
-    }
+    const {word, wordLoadingStatus} = useSelector(state => state);
+    const dispatch = useDispatch();
+    const {request} = useHttp();
 
     const updateWord = (name) => {
-        clearError();
-
-        getWord(name)
-            .then(onWordLoaded)
-            .then(() => setProcess('confirmed'))
-    }
-
-    const errorMessage = process === 'error' ? <div className="word__search-critical-error"><ErrorMessage /></div> : null;
-    const results = !word || process === 'error' ? null :
+        dispatch(wordFetching());
+        request(`http://api.dictionaryapi.dev/api/v2/entries/en/${name}`)
+            .then(data => dispatch(wordFetched(data)))
+            .catch(() => dispatch(wordFetchingError()));
+    };
+    const spinner = wordLoadingStatus === 'loading' ? <Spinner/> : null;
+    const errorMessage = wordLoadingStatus === 'error' ? <div className="word__search-critical-error"><ErrorMessage /></div> : null;
+    const results = !word[0]|| wordLoadingStatus === 'error' ? null :
                     <div className="word__search">
                         <div className="word__search-success">Нашли слово: <span>{word[0].word}</span>! Посетить страницу?</div>
                         <Link to={`/${word[0].word}`} className='button button__secondary'>
@@ -57,13 +55,14 @@ const HomePage = () => {
                         <button
                             type='submit'
                             className='button button__main'
-                            disabled={process === "loading"}>
+                            disabled={wordLoadingStatus=='loading'}>
                             <div className='inner'>Поиск</div>
                         </button>
                     </div>
                     <FormikErrorMessage component="div" className="word__search-error" name="word" />
                 </Form>
             </Formik>
+            {spinner}
             {results}
             {errorMessage}
         </div>

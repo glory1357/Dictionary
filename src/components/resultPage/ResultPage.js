@@ -1,40 +1,43 @@
 import { useParams } from "react-router";
-import { useState, useEffect } from "react";
-import useWordService from "../../services/WordService";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+// import useWordService from "../../services/WordService";
+import {wordFetching, wordFetched, wordFetchingError, wordClear} from '../../actions/index';
+import {useHttp} from '../../hooks/http.hook';
 import Spinner from "../spinner/Spinner";
 import Page404 from '../404/404';
 
 import './resultPage.scss';
 
 const ResultPage = () => {
-    console.log('a')
     const {wordKey} = useParams();
-    const [word, setWord] = useState(null);
-    const {getWord, clearError, process, setProcess} = useWordService();
-    
+    const dispatch = useDispatch();
+    const {word, wordLoadingStatus} = useSelector(state => state);
+    const {request} = useHttp();
+
     useEffect(() => {
-        console.log('fe')
-        updateData();
-    }, [wordKey])
+        dispatch(wordFetching());
+        request(`http://api.dictionaryapi.dev/api/v2/entries/en/${wordKey}`)
+            .then(data => dispatch(wordFetched(data)))
+            .catch(() => dispatch(wordFetchingError()));
+    }, [wordKey]);
 
-    const updateData =  () => {
-        clearError();
-        getWord(wordKey).then(onDataLoaded).then(()=> setProcess('confirmed'));
+    if (wordLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (wordLoadingStatus === "error") {
+        return <Page404/>
     }
-        
-    const onDataLoaded = (data) => {
-        setWord(data);
-    }
-
     return (
         <>
-          {setContent(process, Content, word)}
+          {word.word ? <Content data={word} dispatch={dispatch}/> : null}
         </>
     )
 }
 
-const Content = ({data}) => {
-    const {word, phonetics, meanings} = data[0];
+const Content = ({data, dispatch}) => {
+    const {word, phonetics, meanings} = data;
 
     const contentPhonetics = phonetics.map(({text, audio}, i) => {
     return (<div key={i}><p>{++i}.{text}</p>
@@ -42,7 +45,6 @@ const Content = ({data}) => {
 
     const contentMeanings = meanings.map(({partOfSpeech, definitions}, i) => {
         const {definition, example, synonyms, antonyms} = definitions[0];
-        
         return (<div key={i} className="meanings-wrapper-definitions"><h4>PartOfSpeech: <span> {partOfSpeech}</span></h4>
             <h4>Definitions:</h4> 
             {definition ? <div><h5>definition: </h5><p>{definition}</p></div>  : null}
@@ -55,6 +57,9 @@ const Content = ({data}) => {
 
     return (
            <div>
+               <Link to={`/`} onClick={() => dispatch(wordClear())} className='button button__secondary_result'>
+                            <div className="inner">На главную</div>
+                        </Link>
                <h2>{word}</h2>
                <hr></hr>
                <div className="phonetics">
@@ -71,17 +76,17 @@ const Content = ({data}) => {
     )
 }
 
-const setContent = (process, Component, data) => {
-    switch (process) {
-        case 'loading':
-            return <Spinner/>
-        case 'confirmed':
-            return <Component data={data}/>
-        case "error":
-            return <Page404/>
-        default:
-            return <Spinner/>
-    }
-}
+// const setContent = (process, Component, data) => {
+//     switch (process) {
+//         case 'loading':
+//             return <Spinner/>
+//         case 'confirmed':
+//             return <Component data={data}/>
+//         case "error":
+//             return <Page404/>
+//         default:
+//             return <Spinner/>
+//     }
+// }
 
 export default ResultPage;

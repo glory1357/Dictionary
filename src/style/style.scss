@@ -63,6 +63,11 @@ a {
         }
     }
     &__secondary {
+        &_result {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+        }
         .inner {
             background-color: grey;
             &::before {
