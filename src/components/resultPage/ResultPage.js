@@ -3,9 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-// import useWordService from "../../services/WordService";
-import {wordFetching, wordFetched, wordFetchingError, wordClear} from '../../actions/index';
-import {useHttp} from '../../hooks/http.hook';
+import {fetchWord, wordClear} from '../../actions/index';
 import Spinner from "../spinner/Spinner";
 import Page404 from '../404/404';
 
@@ -14,19 +12,18 @@ import './resultPage.scss';
 const ResultPage = () => {
     const {wordKey} = useParams();
     const dispatch = useDispatch();
-    const {word, wordLoadingStatus} = useSelector(state => state);
-    const {request} = useHttp();
+    const {word, wordLoadingStatus, fetchingError} = useSelector(state => state);
 
     useEffect(() => {
-        dispatch(wordFetching());
-        request(`http://api.dictionaryapi.dev/api/v2/entries/en/${wordKey}`)
-            .then(data => dispatch(wordFetched(data)))
-            .catch(() => dispatch(wordFetchingError()));
+        if(!word.word){
+            dispatch(fetchWord(wordKey));
+        }
     }, [wordKey]);
 
-    if (wordLoadingStatus === "loading") {
+    if (wordLoadingStatus ) {
         return <Spinner/>;
-    } else if (wordLoadingStatus === "error") {
+    } 
+    if (fetchingError) {
         return <Page404/>
     }
     return (

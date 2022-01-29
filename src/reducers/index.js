@@ -1,6 +1,7 @@
 const initialState = {
     word: [],
-    wordLoadingStatus: 'idle'
+    wordLoadingStatus: false,
+    fetchingError: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -8,22 +9,26 @@ const reducer = (state = initialState, action) => {
         case 'WORD_FETCHING':
             return {
                 ...state,
-                wordLoadingStatus: 'loading'
+                wordLoadingStatus: true,
+                fetchingError:null
             }
         case 'WORD_FETCHED':
             return {
+                ...state,
                 word: action.payload[0],
-                wordLoadingStatus: 'idle'
+                wordLoadingStatus: false
             }
         case 'WORD_FETCHING_ERROR':
+                console.log(action.payload)
             return {
                 ... state,
-                wordLoadingStatus: 'error'
+                wordLoadingStatus: false,
+                fetchingError: action.payload
             }
-        case 'WORD_FETCH_CLEAR':
+        case 'WORD_STORE_CLEAR':
             return {
                 word: [],
-                wordLoadingStatus: 'idle'
+                fetchingError: null
             }
         default: return state
     }
