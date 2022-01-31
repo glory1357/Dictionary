@@ -1,48 +1,13 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+import React from 'react';
 
-import { fetchWord, storeClear } from '../../actions/index';
-import Spinner from '../spinner/Spinner';
-import Page404 from '../404/404';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-
-import './resultPage.scss';
-
-function ResultPage() {
-  const { wordKey } = useParams();
-  const dispatch = useDispatch();
-  const { dataWord, wordLoadingStatus, fetchingError } = useSelector((state) => state);
-
-  useEffect(() => {
-    if (!dataWord.word) {
-      dispatch(fetchWord(wordKey));
-    }
-  }, [wordKey]);
-
-  if (wordLoadingStatus) {
-    return <Spinner />;
-  }
-
-  if (fetchingError === 404) {
-    return <Page404 />;
-  }
-  if (fetchingError) {
-    return <ErrorMessage />;
-  }
-
-  return (
-    dataWord.word ? <Content data={dataWord} dispatch={dispatch} /> : null
-  );
-}
-
-function Content({ data, dispatch }) {
+function Content( data, dispatch) {
   const { word, phonetics, meanings } = data;
 
-  const contentPhonetics = phonetics.map(({ text, audio }) => (
+  const contentPhonetics = phonetics.map(({ text, audio }, i) => (
     <div key={nanoid()}>
       <p>
+        {i + 1}
+        .
         {text}
       </p>
       {audio ? <audio src={audio} controls><track kind="captions" /></audio> : null}
@@ -74,13 +39,13 @@ function Content({ data, dispatch }) {
             <p>{example}</p>
           </div>
         ) : null}
-        {synonyms.length ? (
+        {synonyms.length > 0 ? (
           <div>
             <h5>synonyms:</h5>
             <ul>{synonyms.map((elem) => <li key={nanoid()}>{elem}</li>)}</ul>
           </div>
         ) : null}
-        {antonyms.length ? (
+        {antonyms.length > 0 ? (
           <div>
             <h5>antonyms:</h5>
             <ul>{antonyms.map((elem) => <li key={nanoid()}>{elem}</li>)}</ul>
@@ -92,7 +57,7 @@ function Content({ data, dispatch }) {
 
   return (
     <div>
-      <Link to="/" onClick={() => dispatch(storeClear())} className="button button__secondary_result">
+      <Link to="/" onClick={() => dispatch(wordClear())} className="button button__secondary_result">
         <div className="inner">На главную</div>
       </Link>
       <h2>{word}</h2>
@@ -110,17 +75,4 @@ function Content({ data, dispatch }) {
   );
 }
 
-// const setContent = (process, Component, data) => {
-//     switch (process) {
-//         case 'loading':
-//             return <Spinner/>
-//         case 'confirmed':
-//             return <Component data={data}/>
-//         case "error":
-//             return <Page404/>
-//         default:
-//             return <Spinner/>
-//     }
-// }
-
-export default ResultPage;
+export default Content;

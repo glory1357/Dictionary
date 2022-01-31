@@ -1,34 +1,17 @@
-import axios from "axios"
+import axios from 'axios';
+import { createAction } from '@reduxjs/toolkit';
 
-export const fetchWord = (name) => async(dispatch) => {
-    dispatch(wordFetching());
-    await axios.get(`http://api.dictionaryapi.dev/api/v2/entries/en/${name}`)
-        .then(res => dispatch(wordFetched(res.data)))
-        .catch((err) => dispatch(wordFetchingError(err)));
-}
+export const wordFetching = createAction('WORD_FETCHING');
 
-export const wordFetching = () => {
-    return {
-        type: 'WORD_FETCHING'
-    }
-}
+export const wordFetched = createAction('WORD_FETCHED');
 
-export const wordFetched = (word) => {
-    return {
-        type: 'WORD_FETCHED',
-        payload: word
-    }
-}
+export const wordFetchingError = createAction('WORD_FETCHING_ERROR');
 
-export const wordFetchingError = (err) => {
-    return {
-        type: 'WORD_FETCHING_ERROR',
-        payload: err
-    }
-}
+export const storeClear = createAction('STORE_STORE_CLEAR');
 
-export const wordClear = () => {
-    return {
-        type: 'WORD_STORE_CLEAR'
-    }
-}
+export const fetchWord = (name) => async (dispatch) => {
+  dispatch(wordFetching());
+  await axios.get(`http://api.dictionaryapi.dev/api/v2/entries/en/${name}`)
+    .then((res) => dispatch(wordFetched(res.data[0])))
+    .catch((err) => dispatch(wordFetchingError(err.response ? err.response.status : true)));
+};
