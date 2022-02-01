@@ -13,7 +13,7 @@ function Page404({ clearStore }) {
         style={{
           display: 'block', textDecoration: 'underline', textAlign: 'center', fontWeight: 'bold', fontSize: '24px', marginTop: '30px',
         }}
-        to="/"
+        to="/dictionary"
       >
         Back to main page
       </Link>

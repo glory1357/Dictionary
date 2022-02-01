@@ -57,7 +57,7 @@ function Content({ data, clearStore }) {
 
   return (
     <div>
-      <Link to="/" onClick={() => clearStore()} className="button button__secondary_result">
+      <Link to="/dictionary" onClick={() => clearStore()} className="button button__secondary_result">
         <div className="inner">На главную</div>
       </Link>
       <h2>{word}</h2>

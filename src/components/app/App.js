@@ -14,8 +14,8 @@ function App() {
         <main>
           <Suspense fallback={<Spinner />}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/:wordKey" element={<ResultPage />} />
+              <Route path="/dictionary" element={<HomePage />} />
+              <Route path="/dictionary/:wordKey" element={<ResultPage />} />
               <Route path="*" element={<Page404 />} />
             </Routes>
           </Suspense>
