@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Dictionary/static/css/main.dfe0e3d0.css",
-    "main.js": "/Dictionary/static/js/main.d9c64c8b.js",
+    "main.js": "/Dictionary/static/js/main.2b9ea935.js",
     "static/js/706.023083c2.chunk.js": "/Dictionary/static/js/706.023083c2.chunk.js",
     "static/css/249.966c06c6.chunk.css": "/Dictionary/static/css/249.966c06c6.chunk.css",
     "static/js/249.fb75b31c.chunk.js": "/Dictionary/static/js/249.fb75b31c.chunk.js",
     "static/media/error.gif": "/Dictionary/static/media/error.42292aa12b6bc303ce99.gif",
     "index.html": "/Dictionary/index.html",
     "main.dfe0e3d0.css.map": "/Dictionary/static/css/main.dfe0e3d0.css.map",
-    "main.d9c64c8b.js.map": "/Dictionary/static/js/main.d9c64c8b.js.map",
+    "main.2b9ea935.js.map": "/Dictionary/static/js/main.2b9ea935.js.map",
     "706.023083c2.chunk.js.map": "/Dictionary/static/js/706.023083c2.chunk.js.map",
     "249.966c06c6.chunk.css.map": "/Dictionary/static/css/249.966c06c6.chunk.css.map",
     "249.fb75b31c.chunk.js.map": "/Dictionary/static/js/249.fb75b31c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dfe0e3d0.css",
-    "static/js/main.d9c64c8b.js"
+    "static/js/main.2b9ea935.js"
   ]
 }
