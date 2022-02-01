@@ -13,6 +13,7 @@ import './resultPageMedia.scss';
 
 function ResultPage() {
   const { wordKey } = useParams();
+  console.log(wordKey);
   const dispatch = useDispatch();
   const { dataWord, wordLoadingStatus, fetchingError } = useSelector((state) => state);
 
