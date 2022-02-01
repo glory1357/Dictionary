@@ -1,0 +1,45 @@
+@media only screen and (max-width: 1250px) {
+    .meanings {
+        &-wrapper {
+            &-definitions {
+                h4 {
+                    font-size: 23px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .meanings {
+        &-wrapper {
+            flex-direction: column;
+            align-items: center;
+    
+            &-definitions {
+                border-bottom: 1px solid black;
+                width: 50%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .meanings {
+        &-wrapper {
+            &-definitions {
+                width: 70%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .meanings {
+        &-wrapper {
+            &-definitions {
+                width: 95%;
+            }
+        }
+    }
+}

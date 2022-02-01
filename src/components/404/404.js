@@ -1,18 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import img from './notFound.png';
-import { storeClear } from '../../actions/index';
 
-function Page404() {
-  const dispatch = useDispatch();
+function Page404({ clearStore }) {
   return (
     <div>
       <img src={img} style={{ display: 'block', margin: '0 auto' }} alt="not found" />
       <p style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}>Page doesn&#39;t exist</p>
       <Link
-        onClick={() => dispatch(storeClear())}
+        onClick={() => clearStore()}
         style={{
           display: 'block', textDecoration: 'underline', textAlign: 'center', fontWeight: 'bold', fontSize: '24px', marginTop: '30px',
         }}

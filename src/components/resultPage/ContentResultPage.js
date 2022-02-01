@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { nanoid } from '@reduxjs/toolkit';
 
-function Content( data, dispatch) {
+function Content({ data, clearStore }) {
   const { word, phonetics, meanings } = data;
 
-  const contentPhonetics = phonetics.map(({ text, audio }, i) => (
+  const contentPhonetics = phonetics.map(({ text, audio }) => (
     <div key={nanoid()}>
       <p>
-        {i + 1}
-        .
         {text}
       </p>
       {audio ? <audio src={audio} controls><track kind="captions" /></audio> : null}
@@ -39,13 +39,13 @@ function Content( data, dispatch) {
             <p>{example}</p>
           </div>
         ) : null}
-        {synonyms.length > 0 ? (
+        {synonyms.length ? (
           <div>
             <h5>synonyms:</h5>
             <ul>{synonyms.map((elem) => <li key={nanoid()}>{elem}</li>)}</ul>
           </div>
         ) : null}
-        {antonyms.length > 0 ? (
+        {antonyms.length ? (
           <div>
             <h5>antonyms:</h5>
             <ul>{antonyms.map((elem) => <li key={nanoid()}>{elem}</li>)}</ul>
@@ -57,7 +57,7 @@ function Content( data, dispatch) {
 
   return (
     <div>
-      <Link to="/" onClick={() => dispatch(wordClear())} className="button button__secondary_result">
+      <Link to="/" onClick={() => clearStore()} className="button button__secondary_result">
         <div className="inner">На главную</div>
       </Link>
       <h2>{word}</h2>
