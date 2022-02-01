@@ -26,7 +26,7 @@ function HomePage() {
         <span>{dataWord.word}</span>
         ! Посетить страницу?
       </div>
-      <Link to={`/${dataWord.word}`} className="button button__secondary">
+      <Link to={`/dictionary/${dataWord.word}`} className="button button__secondary">
         <div className="inner">На страницу</div>
       </Link>
     </div>
