@@ -7,6 +7,7 @@ import store from './store';
 
 import './style/style.scss';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
